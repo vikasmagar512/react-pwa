@@ -1,5 +1,6 @@
 # react-pwa
-Firebase Hosted PWA using react which follows all the characteristics of ideal PWA like service worker, caching
+Firebase Hosted PWA using react which follows all the characteristics of ideal PWA like service worker, caching.
+See it live at  [https://pwa-experiment-8cfae.firebaseapp.com](https://pwa-experiment-8cfae.firebaseapp.com)
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
