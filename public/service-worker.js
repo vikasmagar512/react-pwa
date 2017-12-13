@@ -7,7 +7,7 @@ var CACHE_NAME = 'my-pwa-cache-v1';
 
 // Delete old caches that are not our current one!
 self.addEventListener("activate", event => {
-  const cacheWhitelist = [CACHE_NAME];
+  /*const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
     caches.keys()
       .then(keyList =>
@@ -18,12 +18,28 @@ self.addEventListener("activate", event => {
           }
         }))
       )
-  );
+  );*/
 });
 
 // The first time the user starts up the PWA, 'install' is triggered.
 self.addEventListener('install', function(event) {
-  if (doCache) {
+    console.log('sw installed ')
+    event.waitUntil(
+        caches.open('static')
+            .then(function (cache) {
+                cache.addAll([
+                    '/',
+                    '/favicon.ico',
+                    '/icon.png',
+                    '/index.html',
+                    '/manifest.json',
+                    '/static/media/logo.5d5d9eef.svg',
+                    '/static/js/bundle.js',
+                    'https://fonts.googleapis.com/css?family=Raleway:400,700'
+                ]);
+            })
+    );
+    /*if (doCache) {
     event.waitUntil(
       caches.open(CACHE_NAME)
         .then(function(cache) {
@@ -31,6 +47,7 @@ self.addEventListener('install', function(event) {
           // This is because webpack hashes it
           fetch("asset-manifest.json")
             .then(response => {
+                console.log(`asset manifest is ${response.json()}`)
               response.json()
             })
             .then(assets => {
@@ -46,17 +63,17 @@ self.addEventListener('install', function(event) {
             })
         })
     );
-  }
+  }*/
 });
 
 // When the webpage goes to fetch files, we intercept that request and serve up the matching files
 // if we have them
 self.addEventListener('fetch', function(event) {
-    if (doCache) {
+    // if (doCache) {
       event.respondWith(
           caches.match(event.request).then(function(response) {
               return response || fetch(event.request);
           })
       );
-    }
+    // }
 });
